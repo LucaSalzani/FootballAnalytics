@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>dotnet-FootballAnalytics.WebCrawler-313A2E9F-6549-442F-834E-49475DBB58B8</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.46" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FootballAnalytics.Domain\FootballAnalytics.Domain.csproj" />
+    <ProjectReference Include="..\FootballAnalytics.Infrastructure\FootballAnalytics.Infrastructure.csproj" />
+  </ItemGroup>
+</Project>
