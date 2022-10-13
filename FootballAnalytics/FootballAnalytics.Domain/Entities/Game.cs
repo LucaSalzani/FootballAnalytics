@@ -1,5 +1,4 @@
-﻿using System;
-using FootballAnalytics.Domain.Enums;
+﻿using FootballAnalytics.Domain.Enums;
 
 namespace FootballAnalytics.Domain.Entities
 {
@@ -7,7 +6,7 @@ namespace FootballAnalytics.Domain.Entities
     {
         public int Id { get; set; }
         public string GameNumber { get; set; }
-        public long GameDateBinary { get; set; } // TODO: Create DateTime Property
+        public long GameDateBinary { get; set; }
         public string HomeTeam { get; set; }
         public string AwayTeam { get; set; }
         public int? HomeTeamGoals { get; set; }
@@ -26,6 +25,12 @@ namespace FootballAnalytics.Domain.Entities
 
                 return MatchResult.Pending;
             }
+        }
+
+        public DateTime GameDate
+        {
+            get => DateTime.FromBinary(GameDateBinary);
+            set => GameDateBinary = value.ToBinary();
         }
     }
 }

@@ -3,15 +3,16 @@ using System.Data.SQLite;
 using Dapper;
 using FootballAnalytics.Application.Interfaces;
 using FootballAnalytics.Domain.Entities;
+using Microsoft.Extensions.Configuration;
 
 namespace FootballAnalytics.Infrastructure
 {
     public class GameRepository : IGameRepository
     {
         private readonly string _connectionString;
-        public GameRepository()
+        public GameRepository(IConfiguration config)
         {
-            _connectionString = @"Data Source=C:\DATA\Learning\FootballAnalytics\Database\FootballAnalytics.db;Version=3;";
+            _connectionString = config.GetConnectionString("LocalSqliteConnection");
         }
         
         public void StoreGames(IEnumerable<Game> games)
