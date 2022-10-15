@@ -4,6 +4,8 @@ namespace FootballAnalytics.Application.Interfaces
 {
     public interface IGameRepository
     {
-        void StoreGames(IEnumerable<Game> games);
+        IEnumerable<Game> GetAllGames();
+
+        void UpsertGamesByGameNumber(IEnumerable<Game> games);
     }
 }

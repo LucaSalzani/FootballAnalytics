@@ -14,8 +14,15 @@ namespace FootballAnalytics.Infrastructure
         {
             _connectionString = config.GetConnectionString("LocalSqliteConnection");
         }
-        
-        public void StoreGames(IEnumerable<Game> games)
+
+        public IEnumerable<Game> GetAllGames()
+        {
+            using IDbConnection connection = new SQLiteConnection(_connectionString); // TODO: always create connection necessary?
+            const string query = @"SELECT * FROM ""Game""";
+            return connection.Query<Game>(query);
+        }
+
+        public void UpsertGamesByGameNumber(IEnumerable<Game> games)
         {
             using IDbConnection connection = new SQLiteConnection(_connectionString);
             foreach (var game in games)

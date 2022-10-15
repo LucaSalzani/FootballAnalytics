@@ -25,10 +25,10 @@ namespace FootballAnalytics.WebCrawler
             var fetchedGames = _fvrzWebService.FetchGames();
             _logger.LogInformation("Finished fetching from web");
 
-            var gameMapper = new GameMapper(_configuration["MatchCenterHostUrl"]);
+            var gameMapper = new GameMapper(_configuration["MatchCenterHostUrl"]); // TODO: After  extracting config, use DI for gameMapper
             var gameEntities = gameMapper.MapFetchedGamesToEntities(fetchedGames);
 
-            _gameRepository.StoreGames(gameEntities);
+            _gameRepository.UpsertGamesByGameNumber(gameEntities);
             _logger.LogInformation("Stored in Database");
 
             await _host.StopAsync(stoppingToken);
