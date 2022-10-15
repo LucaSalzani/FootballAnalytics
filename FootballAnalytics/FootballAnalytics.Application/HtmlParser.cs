@@ -21,7 +21,6 @@ namespace FootballAnalytics.Application
                     continue;
                 }
 
-                // TODO:  Maybe use builder pattern: builder.WithLinkToGame(rootChild.GetAttributeValue("href", "notFound"))...
                 var linkToGame = rootChild.GetAttributeValue("href", "notFound").Trim();
                 var gameContainerChildren = rootChild.FirstChild.Elements("div").ToList();
                 var time = gameContainerChildren[0].InnerText.Trim();

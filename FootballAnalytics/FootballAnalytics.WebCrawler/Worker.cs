@@ -9,13 +9,15 @@ namespace FootballAnalytics.WebCrawler
         private readonly IHost _host;
         private readonly IGameRepository _gameRepository;
         private readonly IFvrzWebService _fvrzWebService;
+        private readonly IConfiguration _configuration;
 
-        public Worker(ILogger<Worker> logger, IHost host, IGameRepository gameRepository, IFvrzWebService fvrzWebService)
+        public Worker(ILogger<Worker> logger, IHost host, IGameRepository gameRepository, IFvrzWebService fvrzWebService, IConfiguration configuration)
         {
             _logger = logger;
             _host = host;
             _gameRepository = gameRepository;
             _fvrzWebService = fvrzWebService;
+            _configuration = configuration;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -23,7 +25,8 @@ namespace FootballAnalytics.WebCrawler
             var fetchedGames = _fvrzWebService.FetchGames();
             _logger.LogInformation("Finished fetching from web");
 
-            var gameEntities = GameMapper.MapFetchedGamesToEntities(fetchedGames);
+            var gameMapper = new GameMapper(_configuration["MatchCenterHostUrl"]);
+            var gameEntities = gameMapper.MapFetchedGamesToEntities(fetchedGames);
 
             _gameRepository.StoreGames(gameEntities);
             _logger.LogInformation("Stored in Database");

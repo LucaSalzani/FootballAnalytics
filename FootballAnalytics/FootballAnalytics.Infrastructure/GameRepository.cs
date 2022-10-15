@@ -20,8 +20,17 @@ namespace FootballAnalytics.Infrastructure
             using IDbConnection connection = new SQLiteConnection(_connectionString);
             foreach (var game in games)
             {
-                var statement = @"INSERT INTO ""Game"" (""GameNumber"",""GameDateBinary"",""HomeTeam"",""AwayTeam"",""HomeTeamGoals"",""AwayTeamGoals"",""LinkToGame"") VALUES (@GameNumber, @GameDateBinary, @HomeTeam, @AwayTeam, @HomeTeamGoals, @AwayTeamGoals, @LinkToGame);";
-                connection.Execute(statement, game);
+                const string upsert = @"INSERT INTO ""Game"" (""GameNumber"",""GameDateBinary"",""HomeTeam"",""AwayTeam"",""HomeTeamGoals"",""AwayTeamGoals"",""LinkToGame"")
+                        VALUES (@GameNumber, @GameDateBinary, @HomeTeam, @AwayTeam, @HomeTeamGoals, @AwayTeamGoals, @LinkToGame)
+                    ON CONFLICT(""GameNumber"") DO UPDATE SET
+                        GameNumber = excluded.GameNumber,
+                        GameDateBinary = excluded.GameDateBinary,
+                        HomeTeam = excluded.HomeTeam,
+                        AwayTeam = excluded.AwayTeam,
+                        HomeTeamGoals = excluded.HomeTeamGoals,
+                        AwayTeamGoals = excluded.AwayTeamGoals,
+                        LinkToGame = excluded.LinkToGame;";
+                connection.Execute(upsert, game);
             }
         }
     }
