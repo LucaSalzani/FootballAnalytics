@@ -1,5 +1,6 @@
 using FootballAnalytics.Application;
 using FootballAnalytics.Application.Interfaces;
+using FootballAnalytics.Infrastructure.Configuration;
 
 namespace FootballAnalytics.WebCrawler
 {
@@ -9,9 +10,9 @@ namespace FootballAnalytics.WebCrawler
         private readonly IHost _host;
         private readonly IGameRepository _gameRepository;
         private readonly IFvrzWebService _fvrzWebService;
-        private readonly IConfiguration _configuration;
+        private readonly MatchCenterConfiguration _configuration;
 
-        public Worker(ILogger<Worker> logger, IHost host, IGameRepository gameRepository, IFvrzWebService fvrzWebService, IConfiguration configuration)
+        public Worker(ILogger<Worker> logger, IHost host, IGameRepository gameRepository, IFvrzWebService fvrzWebService, MatchCenterConfiguration configuration)
         {
             _logger = logger;
             _host = host;
@@ -25,7 +26,7 @@ namespace FootballAnalytics.WebCrawler
             var fetchedGames = _fvrzWebService.FetchGames();
             _logger.LogInformation("Finished fetching from web");
 
-            var gameMapper = new GameMapper(_configuration["MatchCenterHostUrl"]); // TODO: After  extracting config, use DI for gameMapper
+            var gameMapper = new GameMapper(_configuration.MatchCenterHostUrl);
             var gameEntities = gameMapper.MapFetchedGamesToEntities(fetchedGames);
 
             _gameRepository.UpsertGamesByGameNumber(gameEntities);

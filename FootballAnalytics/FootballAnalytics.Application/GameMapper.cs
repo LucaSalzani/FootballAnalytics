@@ -1,9 +1,10 @@
-﻿using FootballAnalytics.Domain.Entities;
+﻿using FootballAnalytics.Application.Interfaces;
+using FootballAnalytics.Domain.Entities;
 using FootballAnalytics.Domain.Model;
 
 namespace FootballAnalytics.Application
 {
-    public class GameMapper
+    public class GameMapper : IGameMapper
     {
         private readonly string _matchCenterHostUrl;
 

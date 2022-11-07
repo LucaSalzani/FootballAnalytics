@@ -16,4 +16,11 @@
     <ProjectReference Include="..\FootballAnalytics.Domain\FootballAnalytics.Domain.csproj" />
     <ProjectReference Include="..\FootballAnalytics.Infrastructure\FootballAnalytics.Infrastructure.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="..\Configuration\common.appsettings.json">
+      <Link>common.appsettings.json</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 </Project>

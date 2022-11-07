@@ -1,0 +1,9 @@
+﻿{
+  "ConnectionStrings": {
+    "LocalSqliteConnection": "Data Source=C:\\DATA\\Learning\\FootballAnalytics\\Database\\FootballAnalytics.db;Version=3;"
+  },
+  "MatchCenterSettings": {
+    "NapoliGamePlanUrl": "https://matchcenter.fvrz.ch/default.aspx?v=1417272&ls=21290&sg=60732&a=sp",
+    "MatchCenterHostUrl": "https://matchcenter.fvrz.ch"
+  }
+}
