@@ -24,10 +24,10 @@ namespace FootballAnalytics.Web.Controllers
         }
         
         [HttpGet("ping")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(string))]
         public IActionResult GetPing()
         {
-            return NoContent();
+            return Ok("It works");
         }
 
         [HttpGet("worstplace")]

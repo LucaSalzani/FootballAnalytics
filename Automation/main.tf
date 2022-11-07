@@ -22,7 +22,7 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "rg" {
-  name     = "TerraformFootball"
+  name     = "${local.project_name}-rg-${random_string.suffix.result}"
   location = "westeurope"
 }
 
@@ -47,14 +47,6 @@ resource "azurerm_windows_web_app" "api" {
     }
     always_on = false
   }
-}
-
-resource "azurerm_app_service_source_control" "sourcecontrol" {
-  app_id                 = azurerm_windows_web_app.api.id
-  repo_url               = "https://github.com/LucaSalzani/FootballAnalytics"
-  branch                 = "main"
-  use_manual_integration = true
-  use_mercurial          = false
 }
 
 output "website_address" {
