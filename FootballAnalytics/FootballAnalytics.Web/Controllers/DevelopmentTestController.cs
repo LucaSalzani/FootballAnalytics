@@ -27,7 +27,7 @@ namespace FootballAnalytics.Web.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(string))]
         public IActionResult GetPing()
         {
-            return Ok("It works");
+            return Ok("It works automated");
         }
 
         [HttpGet("worstplace")]
