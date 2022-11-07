@@ -1,5 +1,4 @@
-﻿using FootballAnalytics.Application;
-using FootballAnalytics.Application.Interfaces;
+﻿using FootballAnalytics.Application.Interfaces;
 using FootballAnalytics.Infrastructure;
 using FootballAnalytics.Infrastructure.Configuration;
 using Microsoft.Extensions.Options;

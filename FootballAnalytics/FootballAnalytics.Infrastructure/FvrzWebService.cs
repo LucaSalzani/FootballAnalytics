@@ -3,7 +3,6 @@ using FootballAnalytics.Application.Interfaces;
 using FootballAnalytics.Domain.Model;
 using FootballAnalytics.Infrastructure.Configuration;
 using HtmlAgilityPack;
-using Microsoft.Extensions.Configuration;
 
 namespace FootballAnalytics.Infrastructure
 {

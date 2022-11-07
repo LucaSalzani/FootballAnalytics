@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
+    <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>dotnet-FootballAnalytics.WebCrawler-313A2E9F-6549-442F-834E-49475DBB58B8</UserSecretsId>
   </PropertyGroup>
