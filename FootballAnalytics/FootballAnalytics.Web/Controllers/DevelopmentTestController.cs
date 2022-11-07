@@ -22,6 +22,13 @@ namespace FootballAnalytics.Web.Controllers
         {
             return Ok(_gameRepository.GetAllGames().Select(GameDto.FromDomain));
         }
+        
+        [HttpGet("ping")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public IActionResult GetPing()
+        {
+            return NoContent();
+        }
 
         [HttpGet("worstplace")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(int))]
