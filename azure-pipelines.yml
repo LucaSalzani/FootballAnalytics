@@ -53,7 +53,7 @@ steps:
 
 - task: ArchiveFiles@2
   inputs:
-    rootFolderOrFile: '$(Build.BinariesDirectory)/Artifacts'
+    rootFolderOrFile: '$(Build.BinariesDirectory)/Artifacts/FootballAnalytics.Web'
     includeRootFolder: false
     archiveType: 'zip'
     archiveFile: '$(Build.ArtifactStagingDirectory)/FootballAnalytics.Web.zip'
