@@ -23,8 +23,8 @@ namespace FootballAnalytics.Application
         {
             // TODO: Parsing error handling
             var game = new Game();
-            var date = DateOnly.Parse(fetchedGame.Date, new CultureInfo("de-CH"));
-            var time = TimeOnly.Parse(fetchedGame.Time, new CultureInfo("de-CH"));
+            var date = DateOnly.ParseExact(fetchedGame.Date[3..], "dd.MM.yyyy", CultureInfo.InvariantCulture);
+            var time = TimeOnly.Parse(fetchedGame.Time, CultureInfo.InvariantCulture);
             game.GameDateBinary =
                 new DateTime(date.Year, date.Month, date.Day, time.Hour, time.Minute, 0).ToBinary();
             game.LinkToGame = $"{_matchCenterHostUrl}{fetchedGame.LinkToGame}";
