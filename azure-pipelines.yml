@@ -60,6 +60,12 @@ steps:
     replaceExistingArchive: true
     verbose: true
 
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: 'Automation'
+    Contents: '*.tf'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
 # this code takes all the files in $(Build.ArtifactStagingDirectory) and uploads them as an artifact of your build.
 - task: PublishPipelineArtifact@1
   inputs:
