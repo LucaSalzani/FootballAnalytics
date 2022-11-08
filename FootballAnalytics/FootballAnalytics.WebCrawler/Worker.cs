@@ -1,6 +1,4 @@
-using FootballAnalytics.Application;
 using FootballAnalytics.Application.Interfaces;
-using FootballAnalytics.Infrastructure.Configuration;
 
 namespace FootballAnalytics.WebCrawler
 {
@@ -10,30 +8,33 @@ namespace FootballAnalytics.WebCrawler
         private readonly IHost _host;
         private readonly IGameRepository _gameRepository;
         private readonly IFvrzWebService _fvrzWebService;
-        private readonly MatchCenterConfiguration _configuration;
+        private readonly IGameMapper _gameMapper;
 
-        public Worker(ILogger<Worker> logger, IHost host, IGameRepository gameRepository, IFvrzWebService fvrzWebService, MatchCenterConfiguration configuration)
+        public Worker(ILogger<Worker> logger,
+            IHost host,
+            IGameRepository gameRepository,
+            IFvrzWebService fvrzWebService,
+            IGameMapper gameMapper)
         {
             _logger = logger;
             _host = host;
             _gameRepository = gameRepository;
             _fvrzWebService = fvrzWebService;
-            _configuration = configuration;
+            _gameMapper = gameMapper;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
+            _logger.LogInformation("Start fetching from web");
             var fetchedGames = _fvrzWebService.FetchGames();
             _logger.LogInformation("Finished fetching from web");
 
-            var gameMapper = new GameMapper(_configuration.MatchCenterHostUrl);
-            var gameEntities = gameMapper.MapFetchedGamesToEntities(fetchedGames);
+            var gameEntities = _gameMapper.MapFetchedGamesToEntities(fetchedGames);
 
             _gameRepository.UpsertGamesByGameNumber(gameEntities);
-            _logger.LogInformation("Stored in Database");
+            _logger.LogInformation("Games stored in database");
 
             await _host.StopAsync(stoppingToken);
         }
     }
 }
-
