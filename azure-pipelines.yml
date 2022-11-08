@@ -34,13 +34,13 @@ steps:
     projects: '**/*.csproj'
     arguments: '--configuration $(buildConfiguration)'
   displayName: 'dotnet build $(buildConfiguration)'
-  
+
 - task: DotNetCoreCLI@2
   inputs:
     command: 'publish'
     publishWebProjects: false
     projects: '**/*Web.csproj'
-    arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+    arguments: '--configuration $(BuildConfiguration) --output $(Build.BinariesDirectory)/Artifacts'
     zipAfterPublish: false
 
 - task: DotNetCoreCLI@2
@@ -48,8 +48,17 @@ steps:
     command: 'publish'
     publishWebProjects: false
     projects: '**/*WebCrawler.csproj'
-    arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)/app_data/Jobs/Triggered/webCrawlerJob'
+    arguments: '--configuration $(BuildConfiguration) --output $(Build.BinariesDirectory)/Artifacts/FootballAnalytics.Web/app_data/Jobs/Triggered'
     zipAfterPublish: false
+
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(Build.BinariesDirectory)/Artifacts'
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/FootballAnalytics.Web.zip'
+    replaceExistingArchive: true
+    verbose: true
 
 # this code takes all the files in $(Build.ArtifactStagingDirectory) and uploads them as an artifact of your build.
 - task: PublishPipelineArtifact@1
