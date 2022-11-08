@@ -18,10 +18,12 @@ var matchCenterSettings = new MatchCenterConfiguration();
 new ConfigureFromConfigurationOptions<MatchCenterConfiguration>(builder.Configuration.GetSection("MatchCenterSettings")).Configure(matchCenterSettings);  
 builder.Services.AddSingleton(matchCenterSettings);
 
+var localConnectionTemplate = builder.Configuration.GetConnectionString("LocalSqliteConnection");
 var connectionString = new ConnectionStringConfiguration
 {
-    LocalSqliteConnection = builder.Configuration.GetConnectionString("LocalSqliteConnection")
+    LocalSqliteConnection = localConnectionTemplate.Replace("{PathToDbFile}", $"{Environment.GetEnvironmentVariable("HOME")}\\FootballAnalytics.db")
 };
+
 builder.Services.AddSingleton(connectionString);
 
 builder.Services.RegisterServices();

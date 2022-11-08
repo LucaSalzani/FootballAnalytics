@@ -17,6 +17,7 @@ namespace FootballAnalytics.Infrastructure
 
         public IEnumerable<Game> GetAllGames()
         {
+            EnsureDbExists();
             using IDbConnection connection = new SQLiteConnection(_connectionString); // TODO: always create connection necessary?
             const string query = @"SELECT * FROM ""Game""";
             return connection.Query<Game>(query);
@@ -24,6 +25,7 @@ namespace FootballAnalytics.Infrastructure
 
         public void UpsertGamesByGameNumber(IEnumerable<Game> games)
         {
+            EnsureDbExists();
             using IDbConnection connection = new SQLiteConnection(_connectionString);
             foreach (var game in games)
             {
@@ -39,6 +41,30 @@ namespace FootballAnalytics.Infrastructure
                         LinkToGame = excluded.LinkToGame;";
                 connection.Execute(upsert, game);
             }
+        }
+
+        private void EnsureDbExists()
+        {
+            var dbFile = $"{Environment.GetEnvironmentVariable("HOME")}\\FootballAnalytics.db";
+            if (File.Exists(dbFile))
+            {
+                return;
+            }
+
+            SQLiteConnection.CreateFile(dbFile);
+
+            using IDbConnection connection = new SQLiteConnection(_connectionString);
+            const string sql = @"CREATE TABLE IF NOT EXISTS ""Game"" (
+            ""Id"" INTEGER NOT NULL UNIQUE,
+            ""GameNumber"" INTEGER NOT NULL UNIQUE,
+            ""GameDateBinary"" INTEGER NOT NULL,
+            ""HomeTeam"" TEXT NOT NULL,
+            ""AwayTeam"" TEXT NOT NULL,
+            ""HomeTeamGoals"" INTEGER,
+            ""AwayTeamGoals"" INTEGER,
+            ""LinkToGame"" TEXT,
+            PRIMARY KEY(""Id"" AUTOINCREMENT));";
+            connection.Execute(sql);
         }
     }
 }

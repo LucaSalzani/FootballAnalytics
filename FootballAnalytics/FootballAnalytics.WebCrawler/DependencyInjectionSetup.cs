@@ -17,9 +17,10 @@ namespace FootballAnalytics.WebCrawler
             new ConfigureFromConfigurationOptions<MatchCenterConfiguration>(hostContext.Configuration.GetSection("MatchCenterSettings")).Configure(matchCenterSettings);  
             services.AddSingleton(matchCenterSettings);
             
+            var localConnectionTemplate = hostContext.Configuration.GetConnectionString("LocalSqliteConnection");
             var connectionString = new ConnectionStringConfiguration
             {
-                LocalSqliteConnection = hostContext.Configuration.GetConnectionString("LocalSqliteConnection")
+                LocalSqliteConnection = localConnectionTemplate.Replace("{PathToDbFile}", $"{Environment.GetEnvironmentVariable("HOME")}\\FootballAnalytics.db")
             };
             services.AddSingleton(connectionString);
         }

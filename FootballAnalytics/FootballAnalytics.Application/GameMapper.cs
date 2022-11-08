@@ -1,4 +1,5 @@
-﻿using FootballAnalytics.Application.Interfaces;
+﻿using System.Globalization;
+using FootballAnalytics.Application.Interfaces;
 using FootballAnalytics.Domain.Entities;
 using FootballAnalytics.Domain.Model;
 
@@ -22,8 +23,8 @@ namespace FootballAnalytics.Application
         {
             // TODO: Parsing error handling
             var game = new Game();
-            var date = DateOnly.Parse(fetchedGame.Date);
-            var time = TimeOnly.Parse(fetchedGame.Time);
+            var date = DateOnly.Parse(fetchedGame.Date, new CultureInfo("de-CH"));
+            var time = TimeOnly.Parse(fetchedGame.Time, new CultureInfo("de-CH"));
             game.GameDateBinary =
                 new DateTime(date.Year, date.Month, date.Day, time.Hour, time.Minute, 0).ToBinary();
             game.LinkToGame = $"{_matchCenterHostUrl}{fetchedGame.LinkToGame}";
