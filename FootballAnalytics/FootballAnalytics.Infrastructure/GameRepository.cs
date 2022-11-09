@@ -1,13 +1,14 @@
 ﻿using System.Data;
 using System.Data.SQLite;
 using Dapper;
-using FootballAnalytics.Application.Interfaces;
+using FootballAnalytics.Application.GetAllGames;
+using FootballAnalytics.Application.UpdateGamesWithLatest;
 using FootballAnalytics.Domain.Entities;
 using FootballAnalytics.Infrastructure.Configuration;
 
 namespace FootballAnalytics.Infrastructure
 {
-    public class GameRepository : IGameRepository // TODO: IGetAllGamesQueryHandlerRepository, IUpdateGamesWithLatestCommandHandlerRepository
+    public sealed class GameRepository : IGetAllGamesQueryHandlerRepository, IUpdateGamesWithLatestCommandHandlerRepository
     {
         private readonly string _connectionString;
         public GameRepository(ConnectionStringConfiguration connectionString)
@@ -18,7 +19,7 @@ namespace FootballAnalytics.Infrastructure
         public async Task<IEnumerable<Game>> GetAllGames()
         {
             EnsureDbExists();
-            using IDbConnection connection = new SQLiteConnection(_connectionString); // TODO: always create connection necessary?
+            using IDbConnection connection = new SQLiteConnection(_connectionString);
             const string query = @"SELECT * FROM ""Game""";
             return await connection.QueryAsync<Game>(query);
         }

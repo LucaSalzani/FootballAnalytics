@@ -1,9 +1,5 @@
 ﻿using FootballAnalytics.Application;
-using FootballAnalytics.Application.Interfaces;
-using FootballAnalytics.Application.UpdateGamesWithLatest;
 using FootballAnalytics.Infrastructure;
-using FootballAnalytics.Infrastructure.Configuration;
-using Microsoft.Extensions.Options;
 
 namespace FootballAnalytics.WebCrawler
 {
@@ -13,31 +9,11 @@ namespace FootballAnalytics.WebCrawler
         {
             services.AddHostedService<Worker>();
             
-            var matchCenterConfiguration = RegisterMatchCenterConfiguration(services, hostContext);
-            RegisterConnectionStringConfiguration(services, hostContext);
-            
-            services.AddConquerorCQS().AddConquerorCQSTypesFromAssembly(typeof(UpdateGamesWithLatestCommandHandler).Assembly);
-            
-            services.AddSingleton<IGameRepository, GameRepository>();
-            services.AddSingleton<IFvrzWebService, FvrzWebService>();
-            services.AddSingleton<IGameMapper, GameMapper>(_ => new GameMapper(matchCenterConfiguration.MatchCenterHostUrl));
+            services.AddConfiguration(hostContext.Configuration, out var matchCenterConfiguration);
+            services.AddInfrastructure();
+            services.AddApplication(matchCenterConfiguration.MatchCenterHostUrl);
 
             services.ConfigureConqueror();
-        }
-
-        private static void RegisterConnectionStringConfiguration(IServiceCollection services, HostBuilderContext hostContext)
-        {
-            var connectionString = ConnectionStringConfiguration.FromConfiguration(hostContext.Configuration);
-            services.AddSingleton(connectionString);
-        }
-
-        private static MatchCenterConfiguration RegisterMatchCenterConfiguration(IServiceCollection services, HostBuilderContext hostContext)
-        {
-            var matchCenterSettings = new MatchCenterConfiguration();
-            new ConfigureFromConfigurationOptions<MatchCenterConfiguration>(
-                hostContext.Configuration.GetSection("MatchCenterSettings")).Configure(matchCenterSettings);
-            services.AddSingleton(matchCenterSettings);
-            return matchCenterSettings;
         }
     }
 }

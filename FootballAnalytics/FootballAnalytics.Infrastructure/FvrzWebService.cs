@@ -1,5 +1,4 @@
 ﻿using FootballAnalytics.Application;
-using FootballAnalytics.Application.Interfaces;
 using FootballAnalytics.Application.UpdateGamesWithLatest;
 using FootballAnalytics.Domain.Model;
 using FootballAnalytics.Infrastructure.Configuration;
@@ -7,7 +6,7 @@ using HtmlAgilityPack;
 
 namespace FootballAnalytics.Infrastructure
 {
-    public class FvrzWebService : IFvrzWebService
+    public sealed class FvrzWebService : IFvrzWebService
     {
         private readonly MatchCenterConfiguration _configuration;
 

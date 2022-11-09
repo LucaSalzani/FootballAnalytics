@@ -2,7 +2,7 @@
 
 namespace FootballAnalytics.Application.GetAllGames;
 
-[HttpQuery] // TODO: Add pragma in crawler command  
+[HttpQuery]
 public sealed record GetAllGamesQuery;
 
 public sealed record GetAllGamesQueryResponse(IReadOnlyCollection<GameDto> Games);

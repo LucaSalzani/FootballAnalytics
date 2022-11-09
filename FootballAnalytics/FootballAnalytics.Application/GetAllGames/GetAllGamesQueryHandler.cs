@@ -1,12 +1,10 @@
-﻿using FootballAnalytics.Application.Interfaces;
+﻿namespace FootballAnalytics.Application.GetAllGames;
 
-namespace FootballAnalytics.Application.GetAllGames;
-
-public class GetAllGamesQueryHandler : IGetAllGamesQueryHandler
+internal sealed class GetAllGamesQueryHandler : IGetAllGamesQueryHandler
 {
-    private readonly IGameRepository _gameRepository;
+    private readonly IGetAllGamesQueryHandlerRepository _gameRepository;
 
-    public GetAllGamesQueryHandler(IGameRepository gameRepository)
+    public GetAllGamesQueryHandler(IGetAllGamesQueryHandlerRepository gameRepository)
     {
         _gameRepository = gameRepository;
     }

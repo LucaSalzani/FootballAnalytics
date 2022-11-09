@@ -1,5 +1,5 @@
 using FootballAnalytics.Application;
-using FootballAnalytics.Application.Interfaces;
+using FootballAnalytics.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FootballAnalytics.Web.Controllers
@@ -8,9 +8,9 @@ namespace FootballAnalytics.Web.Controllers
     [Route("devtest")]
     public class DevelopmentTestController : ControllerBase
     {
-        private readonly IGameRepository _gameRepository;
+        private readonly GameRepository _gameRepository;
 
-        public DevelopmentTestController(IGameRepository gameRepository)
+        public DevelopmentTestController(GameRepository gameRepository)
         {
             _gameRepository = gameRepository;
         }

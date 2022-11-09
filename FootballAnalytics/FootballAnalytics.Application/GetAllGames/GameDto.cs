@@ -3,7 +3,7 @@ using FootballAnalytics.Domain.Enums;
 
 namespace FootballAnalytics.Application.GetAllGames
 {
-    public class GameDto
+    public sealed class GameDto
     {
         public string GameNumber { get; set; }
         public string HomeTeam { get; set; }

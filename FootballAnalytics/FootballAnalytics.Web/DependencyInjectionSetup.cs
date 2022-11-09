@@ -1,20 +1,21 @@
-﻿using FootballAnalytics.Application.GetAllGames;
-using FootballAnalytics.Application.Interfaces;
+﻿using FootballAnalytics.Application;
 using FootballAnalytics.Infrastructure;
 
 namespace FootballAnalytics.Web
 {
     public static class DependencyInjectionSetup
     {
-        public static IServiceCollection RegisterServices(this IServiceCollection services)
+        public static IServiceCollection RegisterServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddControllers().AddConquerorCQS();
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
 
-            services.AddConquerorCQS().AddConquerorCQSTypesFromAssembly(typeof(GetAllGamesQueryHandler).Assembly); // TODO: DI per assembly
+            services.AddConfiguration(configuration, out var matchCenterConfiguration);
+            services.AddInfrastructure();
             
-            services.AddTransient<IGameRepository, GameRepository>();
+            services.AddApplication(matchCenterConfiguration.MatchCenterHostUrl);
+
             services.ConfigureConqueror();
             return services;
         }

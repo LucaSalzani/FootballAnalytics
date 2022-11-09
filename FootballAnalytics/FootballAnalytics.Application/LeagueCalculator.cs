@@ -3,7 +3,7 @@ using FootballAnalytics.Domain.Enums;
 
 namespace FootballAnalytics.Application
 {
-    public class LeagueCalculator
+    public sealed class LeagueCalculator
     {
         private readonly List<Game> _currentLeagueGameState;
 

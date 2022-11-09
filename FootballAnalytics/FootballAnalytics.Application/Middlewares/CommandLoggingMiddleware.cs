@@ -2,7 +2,7 @@
 
 namespace FootballAnalytics.Application.Middlewares;
 
-internal sealed class CommandLoggingMiddleware : ICommandMiddleware
+public sealed class CommandLoggingMiddleware : ICommandMiddleware
 {
     public Task<TResponse> Execute<TCommand, TResponse>(CommandMiddlewareContext<TCommand, TResponse> ctx)
         where TCommand : class

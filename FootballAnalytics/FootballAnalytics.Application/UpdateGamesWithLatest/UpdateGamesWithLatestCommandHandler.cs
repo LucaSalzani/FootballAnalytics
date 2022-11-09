@@ -1,20 +1,18 @@
 using Conqueror;
-using FootballAnalytics.Application.Interfaces;
 using FootballAnalytics.Application.Middlewares;
 using Microsoft.Extensions.Logging;
 
 namespace FootballAnalytics.Application.UpdateGamesWithLatest;
 
-// TODO: Visibility In whole project
-public class UpdateGamesWithLatestCommandHandler : IUpdateGamesWithLatestCommandHandler, IConfigureCommandPipeline
+internal sealed class UpdateGamesWithLatestCommandHandler : IUpdateGamesWithLatestCommandHandler, IConfigureCommandPipeline
 {
     private readonly ILogger<UpdateGamesWithLatestCommandHandler> _logger;
-    private readonly IGameRepository _gameRepository;
+    private readonly IUpdateGamesWithLatestCommandHandlerRepository _gameRepository;
     private readonly IFvrzWebService _fvrzWebService;
     private readonly IGameMapper _gameMapper;
 
     public UpdateGamesWithLatestCommandHandler(ILogger<UpdateGamesWithLatestCommandHandler> logger,
-        IGameRepository gameRepository,
+        IUpdateGamesWithLatestCommandHandlerRepository gameRepository,
         IFvrzWebService fvrzWebService,
         IGameMapper gameMapper)
     {
