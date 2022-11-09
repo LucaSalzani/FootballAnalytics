@@ -1,4 +1,5 @@
-﻿using FootballAnalytics.Application.Interfaces;
+﻿using FootballAnalytics.Application.GetAllGames;
+using FootballAnalytics.Application.Interfaces;
 using FootballAnalytics.Infrastructure;
 
 namespace FootballAnalytics.Web
@@ -7,11 +8,14 @@ namespace FootballAnalytics.Web
     {
         public static IServiceCollection RegisterServices(this IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers().AddConquerorCQS();
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
 
+            services.AddConquerorCQS().AddConquerorCQSTypesFromAssembly(typeof(GetAllGamesQueryHandler).Assembly); // TODO: DI per assembly
+            
             services.AddTransient<IGameRepository, GameRepository>();
+            services.ConfigureConqueror();
             return services;
         }
     }

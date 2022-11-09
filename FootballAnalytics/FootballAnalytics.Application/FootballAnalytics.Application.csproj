@@ -7,11 +7,24 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="Conqueror" Version="0.2.0-beta.1" />
+	  <PackageReference Include="Conqueror.CQS.Analyzers" Version="0.2.0-beta.1">
+	    <PrivateAssets>all</PrivateAssets>
+	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	  </PackageReference>
+	  <PackageReference Include="Conqueror.CQS.Transport.Http.Abstractions" Version="0.2.0-beta.1" />
 	  <PackageReference Include="HtmlAgilityPack" Version="1.11.46" />
+	  <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <ProjectReference Include="..\FootballAnalytics.Domain\FootballAnalytics.Domain.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Include="Microsoft.Extensions.Logging.Abstractions">
+	    <HintPath>..\..\..\..\..\Program Files\dotnet\shared\Microsoft.AspNetCore.App\6.0.10\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+	  </Reference>
 	</ItemGroup>
 
 </Project>

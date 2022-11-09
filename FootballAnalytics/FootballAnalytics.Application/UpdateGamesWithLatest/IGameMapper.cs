@@ -1,7 +1,7 @@
 ﻿using FootballAnalytics.Domain.Entities;
 using FootballAnalytics.Domain.Model;
 
-namespace FootballAnalytics.Application.Interfaces;
+namespace FootballAnalytics.Application.UpdateGamesWithLatest;
 
 public interface IGameMapper
 {

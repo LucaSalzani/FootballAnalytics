@@ -7,7 +7,7 @@ using FootballAnalytics.Infrastructure.Configuration;
 
 namespace FootballAnalytics.Infrastructure
 {
-    public class GameRepository : IGameRepository
+    public class GameRepository : IGameRepository // TODO: IGetAllGamesQueryHandlerRepository, IUpdateGamesWithLatestCommandHandlerRepository
     {
         private readonly string _connectionString;
         public GameRepository(ConnectionStringConfiguration connectionString)
@@ -15,12 +15,12 @@ namespace FootballAnalytics.Infrastructure
             _connectionString = connectionString.LocalSqliteConnection;
         }
 
-        public IEnumerable<Game> GetAllGames()
+        public async Task<IEnumerable<Game>> GetAllGames()
         {
             EnsureDbExists();
             using IDbConnection connection = new SQLiteConnection(_connectionString); // TODO: always create connection necessary?
             const string query = @"SELECT * FROM ""Game""";
-            return connection.Query<Game>(query);
+            return await connection.QueryAsync<Game>(query);
         }
 
         public void UpsertGamesByGameNumber(IEnumerable<Game> games)
@@ -43,7 +43,7 @@ namespace FootballAnalytics.Infrastructure
             }
         }
 
-        private void EnsureDbExists()
+        private void EnsureDbExists() // Todo: Add as command? in infrastructure
         {
             var dbFile = $"{Environment.GetEnvironmentVariable("HOME")}\\FootballAnalytics.db";
             if (File.Exists(dbFile))

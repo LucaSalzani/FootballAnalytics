@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using FootballAnalytics.Application.Interfaces;
+using FootballAnalytics.Application.UpdateGamesWithLatest;
 using FootballAnalytics.Domain.Entities;
 using FootballAnalytics.Domain.Model;
 

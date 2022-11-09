@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-
-namespace FootballAnalytics.Infrastructure.Configuration;
+﻿namespace FootballAnalytics.Infrastructure.Configuration;
 
 public class MatchCenterConfiguration
 {

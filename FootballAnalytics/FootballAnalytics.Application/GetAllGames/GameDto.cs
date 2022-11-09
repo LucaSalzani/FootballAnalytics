@@ -1,7 +1,7 @@
 ﻿using FootballAnalytics.Domain.Entities;
 using FootballAnalytics.Domain.Enums;
 
-namespace FootballAnalytics.Infrastructure.Dtos
+namespace FootballAnalytics.Application.GetAllGames
 {
     public class GameDto
     {

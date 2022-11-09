@@ -2,9 +2,9 @@
 
 namespace FootballAnalytics.Application.Interfaces
 {
-    public interface IGameRepository
+    public interface IGameRepository // TODO: IGetAllGamesQueryHandlerRepository, IUpdateGamesWithLatestCommandHandlerRepository
     {
-        IEnumerable<Game> GetAllGames();
+        Task<IEnumerable<Game>>GetAllGames();
 
         void UpsertGamesByGameNumber(IEnumerable<Game> games);
     }
