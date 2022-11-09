@@ -5,28 +5,31 @@ using FootballAnalytics.Application.GetAllGames;
 using FootballAnalytics.Application.UpdateGamesWithLatest;
 using FootballAnalytics.Domain.Entities;
 using FootballAnalytics.Infrastructure.Configuration;
+using FootballAnalytics.Infrastructure.EnsureDatabase;
 
 namespace FootballAnalytics.Infrastructure
 {
     public sealed class GameRepository : IGetAllGamesQueryHandlerRepository, IUpdateGamesWithLatestCommandHandlerRepository
     {
+        private readonly IEnsureDatabaseCommandHandler _ensureDatabaseCommandHandler;
         private readonly string _connectionString;
-        public GameRepository(ConnectionStringConfiguration connectionString)
+        public GameRepository(ConnectionStringConfiguration connectionString, IEnsureDatabaseCommandHandler ensureDatabaseCommandHandler)
         {
+            _ensureDatabaseCommandHandler = ensureDatabaseCommandHandler;
             _connectionString = connectionString.LocalSqliteConnection;
         }
 
-        public async Task<IEnumerable<Game>> GetAllGames()
+        public async Task<IEnumerable<Game>> GetAllGames(CancellationToken cancellationToken)
         {
-            EnsureDbExists();
+            await EnsureDbExists(cancellationToken);
             using IDbConnection connection = new SQLiteConnection(_connectionString);
             const string query = @"SELECT * FROM ""Game""";
             return await connection.QueryAsync<Game>(query);
         }
 
-        public void UpsertGamesByGameNumber(IEnumerable<Game> games)
+        public async Task UpsertGamesByGameNumber(IEnumerable<Game> games, CancellationToken cancellationToken)
         {
-            EnsureDbExists();
+            await EnsureDbExists(cancellationToken);
             using IDbConnection connection = new SQLiteConnection(_connectionString);
             foreach (var game in games)
             {
@@ -40,32 +43,13 @@ namespace FootballAnalytics.Infrastructure
                         HomeTeamGoals = excluded.HomeTeamGoals,
                         AwayTeamGoals = excluded.AwayTeamGoals,
                         LinkToGame = excluded.LinkToGame;";
-                connection.Execute(upsert, game);
+                await connection.ExecuteAsync(upsert, game);
             }
         }
 
-        private void EnsureDbExists() // Todo: Add as command? in infrastructure
+        private async Task EnsureDbExists(CancellationToken cancellationToken) // Todo: Add as command? in infrastructure
         {
-            var dbFile = $"{Environment.GetEnvironmentVariable("HOME")}\\FootballAnalytics.db";
-            if (File.Exists(dbFile))
-            {
-                return;
-            }
-
-            SQLiteConnection.CreateFile(dbFile);
-
-            using IDbConnection connection = new SQLiteConnection(_connectionString);
-            const string sql = @"CREATE TABLE IF NOT EXISTS ""Game"" (
-            ""Id"" INTEGER NOT NULL UNIQUE,
-            ""GameNumber"" INTEGER NOT NULL UNIQUE,
-            ""GameDateBinary"" INTEGER NOT NULL,
-            ""HomeTeam"" TEXT NOT NULL,
-            ""AwayTeam"" TEXT NOT NULL,
-            ""HomeTeamGoals"" INTEGER,
-            ""AwayTeamGoals"" INTEGER,
-            ""LinkToGame"" TEXT,
-            PRIMARY KEY(""Id"" AUTOINCREMENT));";
-            connection.Execute(sql);
+            await _ensureDatabaseCommandHandler.ExecuteCommand(new(), cancellationToken);
         }
     }
 }

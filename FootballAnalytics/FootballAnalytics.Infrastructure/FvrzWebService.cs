@@ -1,6 +1,5 @@
 ﻿using FootballAnalytics.Application;
 using FootballAnalytics.Application.FetchGamesFromFvrzHomepage;
-using FootballAnalytics.Application.UpdateGamesWithLatest;
 using FootballAnalytics.Infrastructure.Configuration;
 using HtmlAgilityPack;
 

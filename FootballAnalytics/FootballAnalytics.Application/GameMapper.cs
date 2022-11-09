@@ -1,6 +1,5 @@
 ﻿using System.Globalization;
 using FootballAnalytics.Application.FetchGamesFromFvrzHomepage;
-using FootballAnalytics.Application.UpdateGamesWithLatest;
 using FootballAnalytics.Domain.Entities;
 
 namespace FootballAnalytics.Application

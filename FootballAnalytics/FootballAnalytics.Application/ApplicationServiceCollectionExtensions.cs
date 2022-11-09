@@ -1,5 +1,4 @@
 ﻿using FootballAnalytics.Application.FetchGamesFromFvrzHomepage;
-using FootballAnalytics.Application.UpdateGamesWithLatest;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace FootballAnalytics.Application;

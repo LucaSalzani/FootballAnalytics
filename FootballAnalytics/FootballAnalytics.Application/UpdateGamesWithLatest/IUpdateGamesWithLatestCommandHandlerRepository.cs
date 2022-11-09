@@ -4,6 +4,6 @@ namespace FootballAnalytics.Application.UpdateGamesWithLatest
 {
     public interface IUpdateGamesWithLatestCommandHandlerRepository
     {
-        void UpsertGamesByGameNumber(IEnumerable<Game> games);
+        Task UpsertGamesByGameNumber(IEnumerable<Game> games, CancellationToken cancellationToken);
     }
 }

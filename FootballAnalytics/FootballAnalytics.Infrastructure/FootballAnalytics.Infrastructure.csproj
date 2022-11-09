@@ -7,6 +7,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="Conqueror.CQS.Analyzers" Version="0.2.0-beta.1">
+	    <PrivateAssets>all</PrivateAssets>
+	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	  </PackageReference>
 	  <PackageReference Include="Dapper" Version="2.0.123" />
 	  <PackageReference Include="HtmlAgilityPack" Version="1.11.46" />
 	  <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="6.0.0" />

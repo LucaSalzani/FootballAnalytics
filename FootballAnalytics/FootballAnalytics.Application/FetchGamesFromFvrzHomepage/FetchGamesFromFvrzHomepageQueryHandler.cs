@@ -1,5 +1,4 @@
 using FootballAnalytics.Application.Middlewares;
-using FootballAnalytics.Application.UpdateGamesWithLatest;
 
 namespace FootballAnalytics.Application.FetchGamesFromFvrzHomepage;
 

@@ -34,7 +34,7 @@ namespace FootballAnalytics.Web.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(int))]
         public async Task<IActionResult> CalculateWorstPlaceForSpecificTeam()
         {
-            var games = await _gameRepository.GetAllGames();
+            var games = await _gameRepository.GetAllGames(CancellationToken.None);
             var teamId = "Napoli Club Zurigo Partenopea 1";
             var calc = new LeagueCalculator(games);
 

@@ -13,7 +13,7 @@ internal sealed class GetAllGamesQueryHandler : IGetAllGamesQueryHandler, IConfi
     
     public async Task<GetAllGamesQueryResponse> ExecuteQuery(GetAllGamesQuery query, CancellationToken cancellationToken)
     {
-        var games = await _gameRepository.GetAllGames();
+        var games = await _gameRepository.GetAllGames(cancellationToken);
         return new GetAllGamesQueryResponse(games.Select(GameDto.FromDomain).ToList());
     }
     

@@ -20,7 +20,7 @@ internal sealed class UpdateGamesWithLatestCommandHandler : IUpdateGamesWithLate
         var fetchGamesFromFvrzHomepageQueryResponse =
             await _fetchGamesFromFvrzHomepageQueryHandler.ExecuteQuery(new(), cancellationToken);
 
-        _gameRepository.UpsertGamesByGameNumber(fetchGamesFromFvrzHomepageQueryResponse.Games);
+        await _gameRepository.UpsertGamesByGameNumber(fetchGamesFromFvrzHomepageQueryResponse.Games, cancellationToken);
     }
     
     // ReSharper disable once UnusedMember.Global

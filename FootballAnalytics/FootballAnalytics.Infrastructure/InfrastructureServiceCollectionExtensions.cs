@@ -11,6 +11,8 @@ public static class InfrastructureServiceCollectionExtensions
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services)
     {
+        services.AddConquerorCQS().AddConquerorCQSTypesFromExecutingAssembly();
+        
         services.AddSingleton<IGetAllGamesQueryHandlerRepository, GameRepository>();
         services.AddSingleton<IUpdateGamesWithLatestCommandHandlerRepository, GameRepository>();
         services.AddSingleton<GameRepository>();
