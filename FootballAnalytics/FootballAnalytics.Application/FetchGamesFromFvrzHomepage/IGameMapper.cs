@@ -1,7 +1,6 @@
 ﻿using FootballAnalytics.Domain.Entities;
-using FootballAnalytics.Domain.Model;
 
-namespace FootballAnalytics.Application.UpdateGamesWithLatest;
+namespace FootballAnalytics.Application.FetchGamesFromFvrzHomepage;
 
 public interface IGameMapper
 {

@@ -1,6 +1,4 @@
-﻿using Conqueror;
-
-namespace FootballAnalytics.Application.GetAllGames;
+﻿namespace FootballAnalytics.Application.GetAllGames;
 
 [HttpQuery]
 public sealed record GetAllGamesQuery;

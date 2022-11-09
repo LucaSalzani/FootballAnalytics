@@ -1,6 +1,4 @@
-﻿using Conqueror;
-
-namespace FootballAnalytics.Application.UpdateGamesWithLatest;
+﻿namespace FootballAnalytics.Application.UpdateGamesWithLatest;
 
 #if DEBUG
 [HttpCommand]

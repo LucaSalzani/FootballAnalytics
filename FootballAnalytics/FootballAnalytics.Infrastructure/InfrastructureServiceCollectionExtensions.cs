@@ -1,4 +1,5 @@
-﻿using FootballAnalytics.Application.GetAllGames;
+﻿using FootballAnalytics.Application.FetchGamesFromFvrzHomepage;
+using FootballAnalytics.Application.GetAllGames;
 using FootballAnalytics.Application.UpdateGamesWithLatest;
 using FootballAnalytics.Infrastructure.Configuration;
 using Microsoft.Extensions.Configuration;

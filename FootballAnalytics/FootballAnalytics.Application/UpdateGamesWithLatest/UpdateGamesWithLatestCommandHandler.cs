@@ -1,42 +1,31 @@
-using Conqueror;
+using FootballAnalytics.Application.FetchGamesFromFvrzHomepage;
 using FootballAnalytics.Application.Middlewares;
-using Microsoft.Extensions.Logging;
 
 namespace FootballAnalytics.Application.UpdateGamesWithLatest;
 
 internal sealed class UpdateGamesWithLatestCommandHandler : IUpdateGamesWithLatestCommandHandler, IConfigureCommandPipeline
 {
-    private readonly ILogger<UpdateGamesWithLatestCommandHandler> _logger;
     private readonly IUpdateGamesWithLatestCommandHandlerRepository _gameRepository;
-    private readonly IFvrzWebService _fvrzWebService;
-    private readonly IGameMapper _gameMapper;
+    private readonly IFetchGamesFromFvrzHomepageQueryHandler _fetchGamesFromFvrzHomepageQueryHandler;
 
-    public UpdateGamesWithLatestCommandHandler(ILogger<UpdateGamesWithLatestCommandHandler> logger,
-        IUpdateGamesWithLatestCommandHandlerRepository gameRepository,
-        IFvrzWebService fvrzWebService,
-        IGameMapper gameMapper)
+    public UpdateGamesWithLatestCommandHandler(IUpdateGamesWithLatestCommandHandlerRepository gameRepository,
+        IFetchGamesFromFvrzHomepageQueryHandler fetchGamesFromFvrzHomepageQueryHandler)
     {
-        _logger = logger;
         _gameRepository = gameRepository;
-        _fvrzWebService = fvrzWebService;
-        _gameMapper = gameMapper;
+        _fetchGamesFromFvrzHomepageQueryHandler = fetchGamesFromFvrzHomepageQueryHandler;
     }
     
     public async Task ExecuteCommand(UpdateGamesWithLatestCommand command, CancellationToken cancellationToken)
     {
-        _logger.LogInformation("Start fetching from web");
-        var fetchedGames = await _fvrzWebService.FetchGames(); // TODO Add query to fetch games
-        _logger.LogInformation("Finished fetching from web");
+        var fetchGamesFromFvrzHomepageQueryResponse =
+            await _fetchGamesFromFvrzHomepageQueryHandler.ExecuteQuery(new(), cancellationToken);
 
-        var gameEntities = _gameMapper.MapFetchedGamesToEntities(fetchedGames);
-
-        _gameRepository.UpsertGamesByGameNumber(gameEntities);
-        _logger.LogInformation("Games stored in database");
+        _gameRepository.UpsertGamesByGameNumber(fetchGamesFromFvrzHomepageQueryResponse.Games);
     }
     
     // ReSharper disable once UnusedMember.Global
     public static void ConfigurePipeline(ICommandPipelineBuilder pipeline)
     {
-        pipeline.UseLogging();
+        pipeline.UseDefault();
     }
 }

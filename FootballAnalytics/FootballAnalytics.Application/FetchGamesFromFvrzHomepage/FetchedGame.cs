@@ -1,4 +1,4 @@
-﻿namespace FootballAnalytics.Domain.Model
+﻿namespace FootballAnalytics.Application.FetchGamesFromFvrzHomepage
 {
     public class FetchedGame
     {

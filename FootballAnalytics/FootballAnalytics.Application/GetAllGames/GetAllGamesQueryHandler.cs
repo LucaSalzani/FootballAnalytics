@@ -1,6 +1,8 @@
-﻿namespace FootballAnalytics.Application.GetAllGames;
+﻿using FootballAnalytics.Application.Middlewares;
 
-internal sealed class GetAllGamesQueryHandler : IGetAllGamesQueryHandler
+namespace FootballAnalytics.Application.GetAllGames;
+
+internal sealed class GetAllGamesQueryHandler : IGetAllGamesQueryHandler, IConfigureQueryPipeline
 {
     private readonly IGetAllGamesQueryHandlerRepository _gameRepository;
 
@@ -13,5 +15,10 @@ internal sealed class GetAllGamesQueryHandler : IGetAllGamesQueryHandler
     {
         var games = await _gameRepository.GetAllGames();
         return new GetAllGamesQueryResponse(games.Select(GameDto.FromDomain).ToList());
+    }
+    
+    public static void ConfigurePipeline(IQueryPipelineBuilder pipeline)
+    {
+        pipeline.UseDefault();
     }
 }

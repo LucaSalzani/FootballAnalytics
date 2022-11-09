@@ -1,6 +1,6 @@
 ﻿using FootballAnalytics.Application;
+using FootballAnalytics.Application.FetchGamesFromFvrzHomepage;
 using FootballAnalytics.Application.UpdateGamesWithLatest;
-using FootballAnalytics.Domain.Model;
 using FootballAnalytics.Infrastructure.Configuration;
 using HtmlAgilityPack;
 
@@ -15,12 +15,12 @@ namespace FootballAnalytics.Infrastructure
             _configuration = configuration;
         }
 
-        public async Task<IEnumerable<FetchedGame>> FetchGames()
+        public async Task<IEnumerable<FetchedGame>> FetchGames(CancellationToken cancellationToken)
         {
             // TODO: Error Handling
             var url = _configuration.NapoliGamePlanUrl;
             var web = new HtmlWeb();
-            var doc = await web.LoadFromWebAsync(url);
+            var doc = await web.LoadFromWebAsync(url, cancellationToken);
 
             return HtmlParser.ParseGamePlan(doc);
         }

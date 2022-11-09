@@ -1,5 +1,5 @@
 ﻿using System.Xml.XPath;
-using FootballAnalytics.Domain.Model;
+using FootballAnalytics.Application.FetchGamesFromFvrzHomepage;
 using HtmlAgilityPack;
 
 namespace FootballAnalytics.Application
