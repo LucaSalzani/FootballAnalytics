@@ -7,7 +7,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Conqueror.CQS.Analyzers" Version="0.2.0-beta.1">
+	  <PackageReference Include="Conqueror.CQS.Analyzers" Version="0.2.0-beta.2">
 	    <PrivateAssets>all</PrivateAssets>
 	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	  </PackageReference>

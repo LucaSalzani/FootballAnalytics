@@ -13,7 +13,7 @@ namespace FootballAnalytics.WebCrawler
             services.AddInfrastructure();
             services.AddApplication(matchCenterConfiguration.MatchCenterHostUrl);
 
-            services.ConfigureConqueror();
+            services.FinalizeConquerorRegistrations();
         }
     }
 }

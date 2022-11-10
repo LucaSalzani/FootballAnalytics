@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Conqueror.CQS.Transport.Http.Server.AspNetCore" Version="0.2.0-beta.1" />
+        <PackageReference Include="Conqueror.CQS.Transport.Http.Server.AspNetCore" Version="0.2.0-beta.2" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
     </ItemGroup>
 

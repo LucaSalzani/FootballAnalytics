@@ -7,7 +7,7 @@ namespace FootballAnalytics.Web
     {
         public static IServiceCollection RegisterServices(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddControllers().AddConquerorCQS();
+            services.AddControllers().AddConquerorCQSHttpControllers();
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
 
@@ -16,7 +16,7 @@ namespace FootballAnalytics.Web
             
             services.AddApplication(matchCenterConfiguration.MatchCenterHostUrl);
 
-            services.ConfigureConqueror();
+            services.FinalizeConquerorRegistrations();
             return services;
         }
     }
