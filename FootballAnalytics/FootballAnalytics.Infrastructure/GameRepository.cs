@@ -47,7 +47,7 @@ namespace FootballAnalytics.Infrastructure
             }
         }
 
-        private async Task EnsureDbExists(CancellationToken cancellationToken) // Todo: Add as command? in infrastructure
+        private async Task EnsureDbExists(CancellationToken cancellationToken)
         {
             await _ensureDatabaseCommandHandler.ExecuteCommand(new(), cancellationToken);
         }

@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FootballAnalytics.Web", "Fo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FootballAnalytics.WebCrawler", "FootballAnalytics.WebCrawler\FootballAnalytics.WebCrawler.csproj", "{D85CDDB6-D474-475D-B637-F29206A6A083}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FootballAnalytics.Tests", "FootballAnalytics.Tests\FootballAnalytics.Tests.csproj", "{6ABCA5D4-3F16-426E-ACFB-E62565E5E882}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{D85CDDB6-D474-475D-B637-F29206A6A083}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D85CDDB6-D474-475D-B637-F29206A6A083}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D85CDDB6-D474-475D-B637-F29206A6A083}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6ABCA5D4-3F16-426E-ACFB-E62565E5E882}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6ABCA5D4-3F16-426E-ACFB-E62565E5E882}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6ABCA5D4-3F16-426E-ACFB-E62565E5E882}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6ABCA5D4-3F16-426E-ACFB-E62565E5E882}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

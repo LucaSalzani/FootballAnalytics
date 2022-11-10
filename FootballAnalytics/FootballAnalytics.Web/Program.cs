@@ -1,5 +1,8 @@
+using System.Runtime.CompilerServices;
 using FootballAnalytics.Infrastructure.Configuration;
 using FootballAnalytics.Web;
+
+[assembly: InternalsVisibleTo("FootballAnalytics.Tests")]
 
 var builder = WebApplication.CreateBuilder(args);
 
